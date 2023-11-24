@@ -1,5 +1,5 @@
 const gravity = 0.098
-const damping = 0.94;
+const damping = 1.01;
 
 var audio = new Audio();
 
