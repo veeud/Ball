@@ -1,20 +1,19 @@
-const gravity = 0.098
+const gravity = 0.98
 const damping = 0.9;
 var spaceBarPressed = false;
-
 var audio = new Audio();
-
 let ball = {
     x: 0,
     y: 0,
     radius: 30,
     velocity: {
-      x: 1,
-      y: 1
+      x: 10,
+      y: -25
     },
     radiusAlteration: 1.5,
     color: "white"
   };
+
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -22,8 +21,8 @@ document.addEventListener("DOMContentLoaded", function() {
     document.body.appendChild(audio);
     var canvas = document.getElementById("canvas");
     context = canvas.getContext("2d");
-    canvas.width = document.body.clientWidth;
-    canvas.height = document.body.clientHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
     ball.y = canvas.height / 2;
     ball.x = canvas.width / 2;
@@ -43,25 +42,17 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
 
-  canvas.addEventListener("mousemove", debounce(handleMouseMove, 1));
-  setInterval(update, 60/1000)
-
+  canvas.addEventListener("mousemove", handleMouseMove);
+  function animate() {
+    update();
+    requestAnimationFrame(animate);
+  }
+  
+  animate();
   });
 
 
-  // Add the debounce function
-function debounce(func, delay) {
-  let timeout;
-  return function () {
-    const context = this;
-    const args = arguments;
-    clearTimeout(timeout);
-    timeout = setTimeout(function () {
-      timeout = null;
-      func.apply(context, args);
-    }, delay);
-  };
-}
+ 
 
   function handleMouseMove(event) {
 
@@ -96,7 +87,7 @@ if (distanceToMouse <= ball.radius * 2) {
     // Bounce off top and bottom
     if (ball.y + ball.radius > canvas.height | ball.y - ball.radius < 0) {
       ball.velocity.y *= -damping; // Invert y velocity and apply damping
-      if(Math.abs(ball.velocity.y) > 1){
+      if(Math.abs(ball.velocity.y) > 5){
         audio.cloneNode(true).play()
         ball.color = getRandomColor()
         ball.radius += ball.radiusAlteration;
@@ -108,14 +99,12 @@ if (distanceToMouse <= ball.radius * 2) {
     // Bounce off the walls
     if (ball.x - ball.radius < 0 || ball.x + ball.radius > canvas.width) {
       ball.velocity.x *= -damping; // Invert x velocity
-      if(Math.abs(ball.velocity.x) > 1){
         audio.cloneNode(true).play()
         ball.color = getRandomColor()
         ball.radius += ball.radiusAlteration;
         if(ball.radius > 128 || ball.radius < 16){
           ball.radiusAlteration *= -1;
         }
-      }
     }
 
     ball.x = Math.max(ball.x, ball.radius)
