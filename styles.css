@@ -1,6 +1,40 @@
 body, html {
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-    height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  height: 100%;
+}
+
+.canvas-container {
+  position: relative;
+}
+
+.canvas {
+  position: absolute; 
+}
+
+.alert {
+  position: absolute;
+  padding: 15px;
+  background-color: #f44336; 
+  color: white;
+  font-size: 28px;
+  width: 100%;
+  z-index: 1; 
+  box-sizing: border-box;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 40px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
 }

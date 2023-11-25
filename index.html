@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <canvas style="display: flex;" id="canvas">
-    </canvas>
+    <div class="canvas-container">
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            This website may contain content that could potentially trigger seizures or other adverse reactions in individuals with photosensitive epilepsy. <br>Viewer discretion is advised. ✋⚠️
+        </div>
+        <canvas class="canvas" id="canvas"></canvas>
+    </div>
 </body>
 </html>

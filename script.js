@@ -1,5 +1,6 @@
 const gravity = 0.098
-const damping = 0.94;
+const damping = 0.9;
+var spaceBarPressed = false;
 
 var audio = new Audio();
 
@@ -27,11 +28,26 @@ document.addEventListener("DOMContentLoaded", function() {
     ball.y = canvas.height / 2;
     ball.x = canvas.width / 2;
 
-    canvas.addEventListener("mousemove", debounce(handleMouseMove, 1));
+    document.addEventListener('keyup', function(event) {
+      if (event.key === ' ') {
+        spaceBarPressed = false;
+      }})
 
-    setInterval(update, 60/1000)
+    document.addEventListener('keydown', function(event) {
+      if (event.key === ' ') {
+        if (event.key === ' ' && !spaceBarPressed) {
+          spaceBarPressed = true;
+        ball.velocity.x *= 2;
+        ball.velocity.y *= 2;
+        }
+      }
+    });
+
+  canvas.addEventListener("mousemove", debounce(handleMouseMove, 1));
+  setInterval(update, 60/1000)
 
   });
+
 
   // Add the debounce function
 function debounce(func, delay) {
